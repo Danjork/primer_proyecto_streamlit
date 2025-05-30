@@ -39,20 +39,26 @@ if opcion_estado != "Todas":
 st.write("### Tareas Actuales")
 st.dataframe(df)
 
-#modifica el estado 
+#modifica el estado
 st.write("### Modificar estado de tareas")
 
 for i, row in df.iterrows():
-    col1, col2, col3 = st.columns([4,2,2])
+    col1, col2, col3 , col4= st.columns([4,2,2,2])
     with col1:
         st.write(f"{i+1}. {row['Tarea']}")
     with col2:
-        if st.button("Completar", key=f"comp_{i}"):
+        if st.button("✅ Completar", key=f"comp_{i}"):
             df.at[i, "Estado"] = "Completada"
             df.to_csv(FILE, index=False)
             st.rerun()
     with col3:
-        if st.button("|| Pausar", key=f"pausa_{i}"):
+        if st.button("⏸ Pausar", key=f"pausa_{i}"):
             df.at[i, "Estado"] = "Pausada"
             df.to_csv(FILE, index=False)
             st.rerun()
+    with col4:
+        if st.button("🗑 Eliminar", key=f"elim_{i}"):
+            df.drop(i, inplace=True)
+            df.to_csv(FILE, index=False)
+            st.rerun()
+
