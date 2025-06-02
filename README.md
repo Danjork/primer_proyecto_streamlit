@@ -36,3 +36,19 @@ Python 3.8+
 Streamlit
 
 Pandas
+
+# 📝 ToDo App Danjork
+
+Una app sencilla hecha con **Streamlit + Python + pandas** que permite:
+- Agregar tareas
+- Marcar como completadas o pausadas
+- Filtrar por estado
+- Eliminar tareas
+
+## 🚀 Ejecutar localmente
+
+```bash
+git clone https://github.com/tu_usuario/todo_app_streamlit
+cd todo_app_streamlit
+pip install -r requirements.txt
+streamlit run app.py
