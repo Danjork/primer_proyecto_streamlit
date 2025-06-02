@@ -5,12 +5,15 @@ import os
 #Cargar tareas o crear archivo vacio
 FILE = "tareas.csv"
 
-if not os.path.exists(FILE):
-    df = pd.DataFrame(columns=["Tarea","Estado"])
-    df.to_csv(FILE, index=False)
+def cargar_datos():
+    if not os.path.exists(FILE):
+        df = pd.DataFrame(columns=["Tarea", "Estado"])
+        df.to_csv(FILE, index=False)
+    return pd.read_csv(FILE)
 
-#Leer archivo con datos
-df = pd.read_csv(FILE)
+def guardar_datos(df):
+    df.to_csv(FILE, index=False)
+df = cargar_datos()
 
 st.title("📋 ToDo App Danjork")
 st.markdown("Organiza tus tareas como un profesional 🧠")
@@ -22,8 +25,8 @@ nueva_tarea = st.text_input("Escribe una tarea:")
 if st.button("Agregar"):
     if nueva_tarea:
         nueva_fila = pd.DataFrame([[nueva_tarea, "Pendiente"]], columns=["Tarea","Estado"])
-        df = pd.concat([df,nueva_fila],ignore_index=True)
-        df.to_csv(FILE, index=False)
+        df = pd.concat([df, nueva_fila],ignore_index=True)
+        guardar_datos(df)
         st.success("Tarea agregada correctamente")
         st.rerun()
     else:
